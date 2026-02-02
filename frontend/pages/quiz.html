@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langually.AI | Daily Quiz</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+    <div style="display: flex; height: 100vh; width: 100%;">
+        <nav class="sidebar">
+            <div class="brand">Langually.AI</div>
+            <ul class="nav-links">
+                <li class="nav-item" onclick="window.location.href='dashboard.html'"><ion-icon
+                        name="grid-outline"></ion-icon> Dashboard</li>
+                <li class="nav-item" onclick="window.location.href='chat.html'"><ion-icon
+                        name="chatbubbles-outline"></ion-icon> AI Tutor</li>
+                <li class="nav-item active" onclick="window.location.href='quiz.html'"><ion-icon
+                        name="school-outline"></ion-icon> Daily Quiz</li>
+                <li class="nav-item" onclick="window.location.href='writing.html'"><ion-icon
+                        name="pencil-outline"></ion-icon> Writing</li>
+            </ul>
+            <div class="user-profile">
+                <div class="avatar" id="avatar-initial">U</div>
+                <div>
+                    <div style="font-weight: 600;" id="user-display">User</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Free Plan</div>
+                </div>
+                <ion-icon name="log-out-outline" style="margin-left: auto; cursor: pointer;" id="logout-btn"></ion-icon>
+            </div>
+        </nav>
+
+        <main class="main-content"
+            style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+
+            <div id="quiz-container" class="card" style="width: 100%; max-width: 700px; padding: 3rem;">
+                <header style="text-align: center; margin-bottom: 3rem;">
+                    <span class="ai-badge" style="margin-bottom: 1rem;">Daily Challenge</span>
+                    <h2 id="question-text" style="font-size: 1.8rem; margin-bottom: 0.5rem; line-height: 1.4;">Loading
+                        Question...</h2>
+                    <p id="question-count" style="color: var(--text-secondary);">Question 1 of 5</p>
+                </header>
+
+                <div id="options-container" style="display: grid; gap: 1rem;">
+                    <!-- V3 Style Buttons injected here -->
+                </div>
+
+                <div id="result-area"
+                    style="display: none; text-align: center; margin-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;">
+                    <h3 id="result-msg" style="font-size: 1.5rem; margin-bottom: 1.5rem;">Correct!</h3>
+                    <button class="action-btn primary" id="next-btn"
+                        style="width: auto; padding: 0 3rem; margin: 0 auto;">Next Question</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Override Quiz JS specific to V3 styling demands (injecting .action-btn instead of .stat-card) -->
+    <script type="module" src="../js/api.js"></script>
+    <script type="module" src="../js/auth.js"></script>
+    <script type="module" src="../js/quiz.js"></script>
+    <script>
+        // Custom styling patch for options
+        const _oldShowQuestion = showQuestion;
+        showQuestion = function (index) {
+            currentIndex = index;
+            const q = currentQuestions[index];
+            document.getElementById('question-text').innerText = q.q;
+            document.getElementById('question-count').innerText = `Question ${index + 1} / ${currentQuestions.length}`;
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'action-btn'; // V3 Style
+                btn.style.justifyContent = 'flex-start';
+                btn.style.textAlign = 'left';
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(opt, q.answer);
+                container.appendChild(btn);
+            });
+
+            document.getElementById('result-area').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

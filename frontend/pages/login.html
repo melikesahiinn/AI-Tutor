@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langually.AI | Login</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body
+    style="display: flex; justify-content: center; align-items: center; background-image: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15), transparent 60%);">
+
+    <div class="auth-box" style="z-index: 10;">
+        <h1 class="brand" style="margin-bottom:1rem; font-size: 2.5rem; text-align: center; display: block;">
+            Langually.AI</h1>
+        <p style="color:var(--text-secondary); margin-bottom: 2rem; text-align: center;">Academic AI Tutor System</p>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label
+                style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem; display: block;">Username</label>
+            <input type="text" id="username" placeholder="e.g. Student" class="action-btn"
+                style="width: 100%; text-align: left; cursor: text; background: rgba(15, 23, 42, 0.6);">
+        </div>
+
+        <button id="login-btn" class="action-btn primary" style="width: 100%; justify-content: center;">
+            Get Started
+        </button>
+        <p style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-secondary);">
+            Demo Mode Enabled • No Password Required
+        </p>
+    </div>
+
+    <script type="module" src="../js/api.js"></script>
+    <script type="module" src="../js/auth.js"></script>
+    
+
+</body>
+
+</html>

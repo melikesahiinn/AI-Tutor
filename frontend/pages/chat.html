@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langually.AI | Smart Chat</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+    <div style="display: flex; height: 100vh; width: 100%;">
+        <nav class="sidebar">
+            <div class="brand">Langually.AI</div>
+            <ul class="nav-links">
+                <li class="nav-item" onclick="window.location.href='dashboard.html'"><ion-icon
+                        name="grid-outline"></ion-icon> Dashboard</li>
+                <li class="nav-item active" onclick="window.location.href='chat.html'"><ion-icon
+                        name="chatbubbles-outline"></ion-icon> AI Tutor</li>
+                <li class="nav-item" onclick="window.location.href='quiz.html'"><ion-icon
+                        name="school-outline"></ion-icon> Daily Quiz</li>
+                <li class="nav-item" onclick="window.location.href='writing.html'"><ion-icon
+                        name="pencil-outline"></ion-icon> Writing</li>
+            </ul>
+            <div class="user-profile">
+                <div class="avatar" id="avatar-initial">U</div>
+                <div>
+                    <div style="font-weight: 600;" id="user-display">User</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Free Plan</div>
+                </div>
+                <ion-icon name="log-out-outline" style="margin-left: auto; cursor: pointer;" id="logout-btn"></ion-icon>
+            </div>
+        </nav>
+
+        <main class="main-content" style="display: flex; flex-direction: column; height: 100vh; padding: 2rem;">
+            <!-- Header -->
+            <header style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 style="font-size: 2rem; font-weight: 700;">AI Tutor Session</h1>
+                    <p style="color: var(--text-secondary);">Real-time practice with instant feedback.</p>
+                </div>
+
+                <!-- Mode Selector -->
+                <div
+                    style="display: flex; align-items: center; gap: 1rem; background: var(--card-glass); padding: 0.5rem 1rem; border-radius: 99px; border: var(--border-glass);">
+                    <ion-icon name="settings-outline" style="color: var(--text-secondary);"></ion-icon>
+                    <select id="learning-mode"
+                        style="background: none; border: none; color: white; outline: none; font-size: 0.9rem; cursor: pointer;">
+                        <option value="practice">⚡ Practice Mode</option>
+                        <option value="explanation">📚 Explanation Mode</option>
+                    </select>
+                </div>
+            </header>
+
+            <!-- Chat Box (Flex Grow to fill height) -->
+            <div class="chat-container" style="flex: 1; margin-bottom: 0;">
+                <div class="chat-messages" id="chat-box" style="flex: 1; overflow-y: auto; padding: 2rem;">
+                    <div class="message ai">
+                        Hello! I am your advanced AI English Tutor. I'm here to help you practice conversation, correct
+                        your grammar, or explain complex topics. What would you like to discuss today?
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <input type="text" id="user-input" placeholder="Type your message here..." autocomplete="off">
+                    <button class="send-btn" id="send-btn">
+                        <ion-icon name="send"></ion-icon>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../js/api.js"></script>
+    <script type="module" src="../js/auth.js"></script>
+    <script type="module" src="../js/chat.js"></script>
+</body>
+
+</html>

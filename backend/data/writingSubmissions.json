@@ -1,0 +1,87 @@
+[
+  {
+    "username": "berfin",
+    "text": "I want to improve my English because I want to speak confidently.",
+    "score": 100,
+    "feedback": {
+      "strengths": [
+        "Clear meaning"
+      ],
+      "improvements": [
+        "Check verb tense",
+        "Use connectors"
+      ]
+    },
+    "date": "2026-01-15T15:49:38.504Z"
+  },
+  {
+    "username": "ezgi",
+    "text": "The Impact of Artificial Intelligence on Education\n\nArtificial Intelligence (AI) has become an essential part of modern life, and its influence on education is growing rapidly. From personalized learning systems to intelligent tutoring platforms, AI is transforming how students learn and how teachers teach. While this technological progress offers many advantages, it also raises important concerns that must be carefully considered.\n\nOne of the most significant benefits of AI in education is personalization. AI-powered systems can analyze students’ learning styles, strengths, and weaknesses, allowing lessons to be adapted to individual needs. This helps students learn at their own pace and improves overall academic performance. In addition, AI tutors are available at any time, providing instant feedback and support, which is especially useful for students who need extra practice outside the classroom.\n\nHowever, the increasing use of AI also brings certain challenges. One major concern is the reduction of human interaction in the learning process. Education is not only about acquiring knowledge but also about developing communication, empathy, and social skills. Relying too heavily on AI systems may weaken the student–teacher relationship. Furthermore, issues related to data privacy and ethical use of student information cannot be ignored.\n\nIn conclusion, Artificial Intelligence has the potential to greatly improve education by making learning more efficient, accessible, and personalized. Nevertheless, AI should be seen as a supportive tool rather than a replacement for teachers. When used responsibly and ethically, AI can create a balanced educational environment where technology and",
+    "environment": "Essay",
+    "tone": "neutral",
+    "score": 100,
+    "feedback": {
+      "score": 100,
+      "strengths": [
+        "Clear expression",
+        "Good vocabulary usage"
+      ],
+      "improvements": [
+        "Work on sentence variety",
+        "Check punctuation"
+      ],
+      "grammarIssues": [],
+      "vocabularySuggestions": [],
+      "overallComment": "Good effort! Keep practicing."
+    },
+    "date": "2026-01-16T01:30:14.642Z"
+  },
+  {
+    "username": "ezgi",
+    "text": "The Impact of Artificial Intelligence on Education\n\nArtificial Intelligence (AI) has become an essential part of modern life, and its influence on education is growing rapidly. From personalized learning systems to intelligent tutoring platforms, AI is transforming how students learn and how teachers teach. While this technological progress offers many advantages, it also raises important concerns that must be carefully considered.\n\nOne of the most significant benefits of AI in education is personalization. AI-powered systems can analyze students’ learning styles, strengths, and weaknesses, allowing lessons to be adapted to individual needs. This helps students learn at their own pace and improves overall academic performance. In addition, AI tutors are available at any time, providing instant feedback and support, which is especially useful for students who need extra practice outside the classroom.\n\nHowever, the increasing use of AI also brings certain challenges. One major concern is the reduction of human interaction in the learning process. Education is not only about acquiring knowledge but also about developing communication, empathy, and social skills. Relying too heavily on AI systems may weaken the student–teacher relationship. Furthermore, issues related to data privacy and ethical use of student information cannot be ignored.\n\nIn conclusion, Artificial Intelligence has the potential to greatly improve education by making learning more efficient, accessible, and personalized. Nevertheless, AI should be seen as a supportive tool rather than a replacement for teachers. When used responsibly and ethically, AI can create a balanced educational environment where technology and",
+    "environment": "Essay",
+    "tone": "neutral",
+    "score": 60,
+    "feedback": {
+      "score": 60,
+      "strengths": [
+        "Clear expression",
+        "Good vocabulary usage"
+      ],
+      "improvements": [
+        "Work on sentence variety",
+        "Check punctuation"
+      ],
+      "grammarIssues": [],
+      "vocabularySuggestions": [],
+      "overallComment": "Could not generate detailed AI analysis. However, your writing has been recorded. Keep practicing!"
+    },
+    "date": "2026-01-16T01:31:54.886Z"
+  },
+  {
+    "username": "ed",
+    "text": "The Impact of Artificial Intelligence on Education\n\nArtificial Intelligence (AI) has become an essential part of modern life, and its influence on education is growing rapidly. From personalized learning systems to intelligent tutoring platforms, AI is transforming how students learn and how teachers teach. While this technological progress offers many advantages, it also raises important concerns that must be carefully considered.\n\nOne of the most significant benefits of AI in education is personalization. AI-powered systems can analyze students’ learning styles, strengths, and weaknesses, allowing lessons to be adapted to individual needs. This helps students learn at their own pace and improves overall academic performance. In addition, AI tutors are available at any time, providing instant feedback and support, which is especially useful for students who need extra practice outside the classroom.\n\nHowever, the increasing use of AI also brings certain challenges. One major concern is the reduction of human interaction in the learning process. Education is not only about acquiring knowledge but also about developing communication, empathy, and social skills. Relying too heavily on AI systems may weaken the student–teacher relationship. Furthermore, issues related to data privacy and ethical use of student information cannot be ignored.\n\nIn conclusion, Artificial Intelligence has the potential to greatly improve education by making learning more efficient, accessible, and personalized. Nevertheless, AI should be seen as a supportive tool rather than a replacement for teachers. When used responsibly and ethically, AI can create a balanced educational environment where technology and",
+    "environment": "Essay",
+    "tone": "neutral",
+    "score": 88,
+    "feedback": {
+      "score": 88,
+      "strengths": [
+        "Excellent sentence structure",
+        "Clear and concise tone",
+        "Good use of vocabulary"
+      ],
+      "improvements": [
+        "Consider adding more complex compound sentences",
+        "Expand on the conclusion"
+      ],
+      "grammarIssues": [],
+      "vocabularySuggestions": [
+        "try using \"utilize\" instead of \"use\"",
+        "consider \"demonstrate\" instead of \"show\""
+      ],
+      "overallComment": "Great job! This is a very well-written piece. The \"Analyze\" button is working perfectly now."
+    },
+    "date": "2026-01-16T01:37:23.284Z"
+  }
+]

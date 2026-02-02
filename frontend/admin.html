@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langually.AI - Teacher Portal</title>
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific overrides for Admin separate view */
+        body {
+            display: block;
+            /* Override flex layout of main app if needed, though mostly okay */
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Animation (Reused) -->
+    <div class="background-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="admin-container">
+
+        <!-- Header -->
+        <header class="admin-header">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="brand" style="font-size: 1.5rem;">
+                    <ion-icon name="planet" style="color: var(--primary);"></ion-icon> Langually
+                    <span
+                        style="font-size: 0.8rem; background: rgba(239, 68, 68, 0.2); color: var(--error); padding: 2px 8px; border-radius: 4px; margin-left: 0.5rem;">TEACHER</span>
+                </div>
+            </div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <div style="text-align: right;">
+                    <div style="font-weight: 600;">Mrs. Sarah</div>
+                    <div style="font-size: 0.8rem; color: var(--success);">Online</div>
+                </div>
+                <div
+                    style="width: 40px; height: 40px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-light);">
+                    S
+                </div>
+                <a href="index.html" class="btn btn-secondary" style="margin-left: 0.5rem; text-decoration: none;">
+                    <ion-icon name="log-out-outline" style="margin-right: 0.5rem;"></ion-icon> Student View
+                </a>
+            </div>
+        </header>
+
+        <!-- Admin Dashboard Content -->
+        <section>
+            <div style="margin-bottom: 2rem;">
+                <h1>Teacher Dashboard</h1>
+                <p>Manage content, quizzes, and monitor student progress.</p>
+            </div>
+
+            <div class="grid-cols-3" style="margin-bottom: 2rem;">
+                <!-- Create Quiz Card -->
+                <div class="glass-card"
+                    style="border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; transition: transform 0.2s;"
+                    onclick="Admin.openModal('admin-quiz-modal')">
+                    <div
+                        style="width: 50px; height: 50px; background: rgba(99, 102, 241, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--primary);">
+                        <ion-icon name="add-circle" style="font-size: 1.75rem;"></ion-icon>
+                    </div>
+                    <h3 style="margin-bottom: 0.5rem;">Create Quiz (FR16)</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Assign new quizzes to students</p>
+                </div>
+
+                <!-- Student Progress -->
+                <div class="glass-card"
+                    style="border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; transition: transform 0.2s;"
+                    onclick="Admin.openModal('admin-students-modal')">
+                    <div
+                        style="width: 50px; height: 50px; background: rgba(16, 185, 129, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--success);">
+                        <ion-icon name="people" style="font-size: 1.75rem;"></ion-icon>
+                    </div>
+                    <h3 style="margin-bottom: 0.5rem;">Students</h3>
+                    <div style="font-size: 1.5rem; font-weight: 700;">128</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Active Learners</p>
+                </div>
+
+                <!-- Content Management -->
+                <div class="glass-card"
+                    style="border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; transition: transform 0.2s;"
+                    onclick="Admin.openModal('admin-content-modal')">
+                    <div
+                        style="width: 50px; height: 50px; background: rgba(245, 158, 11, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--warning);">
+                        <ion-icon name="library" style="font-size: 1.75rem;"></ion-icon>
+                    </div>
+                    <h3 style="margin-bottom: 0.5rem;">Content Library</h3>
+                    <div style="font-size: 1.5rem; font-weight: 700;">45</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Lesson Modules</p>
+                </div>
+            </div>
+
+            <!-- Recent Quizzes Table -->
+            <div class="glass-card">
+                <h3 style="margin-bottom: 1.5rem;">Active Quizzes</h3>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse;" class="active-quizzes-table">
+                        <thead>
+                            <tr style="text-align: left; color: var(--text-muted); font-size: 0.85rem;">
+                                <th style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">Quiz Title
+                                </th>
+                                <th style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">Type</th>
+                                <th style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">Assigned To
+                                </th>
+                                <th style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">Status</th>
+                                <th style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Admin Login Overlay -->
+    <div id="admin-login-overlay" class="auth-overlay" style="display: flex; z-index: 9999; background: #0f172a;">
+        <div class="glass-card" style="max-width: 400px; width: 90%; text-align: center; padding: 3rem;">
+            <div
+                style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-neon); margin: 0 auto 1.5rem;">
+                <ion-icon name="key" style="color: white; font-size: 2rem;"></ion-icon>
+            </div>
+            <h2 style="margin-bottom: 0.5rem;">Teacher Access</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Please verify your identity</p>
+
+            <div style="text-align: left; margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Username</label>
+                <input type="text" id="admin-username" placeholder="Enter admin username" style="width: 100%;">
+            </div>
+
+            <div style="text-align: left; margin-bottom: 2rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Password</label>
+                <input type="password" id="admin-password" placeholder="Enter admin password" style="width: 100%;">
+            </div>
+
+            <button class="btn btn-primary" onclick="Admin.login()" style="width: 100%; justify-content: center;">
+                Login to Portal <ion-icon name="arrow-forward"></ion-icon>
+            </button>
+            <p style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-muted); cursor: pointer;"
+                onclick="window.location.href='index.html'">
+                <ion-icon name="arrow-back"></ion-icon> Return to Student View
+            </p>
+        </div>
+    </div>
+
+    <!-- Admin Quiz Modal (Reused) -->
+    <div id="admin-quiz-modal" class="auth-overlay" style="display: none; z-index: 210;">
+        <div class="glass-card" style="max-width: 600px; width: 90%; position: relative;">
+            <ion-icon name="close-outline" onclick="Admin.closeModal('admin-quiz-modal')"
+                style="position: absolute; top: 1rem; right: 1rem; cursor: pointer; font-size: 1.5rem;"></ion-icon>
+
+            <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <ion-icon name="add-circle-outline" style="color: var(--primary);"></ion-icon> Create New Quiz
+            </h2>
+
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem;">Quiz Title</label>
+                <input type="text" id="quiz-title" placeholder="e.g. Future Perfect Tense Review" style="width: 100%;">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem;">Target Level</label>
+                    <select id="quiz-level" style="width: 100%;">
+                        <option value="A1">A1 - Beginner</option>
+                        <option value="A2">A2 - Elementary</option>
+                        <option value="B1">B1 - Intermediate</option>
+                        <option value="B2">B2 - Upper Intermediate</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem;">Assign To</label>
+                    <select id="assign-to" style="width: 100%;">
+                        <option>All Students</option>
+                        <option>Morning Class</option>
+                        <option>Individual...</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- New Topic Input for AI -->
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem;">Topic / Context</label>
+                <input type="text" id="quiz-topic" placeholder="e.g. Travel, Business, Grammar..." style="width: 100%;">
+            </div>
+
+            <!-- Quiz Preview Area -->
+            <div id="quiz-preview"
+                style="margin-bottom: 1.5rem; max-height: 200px; overflow-y: auto; display: none; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 0.5rem;">
+                <!-- Generated questions will appear here -->
+            </div>
+
+            <div
+                style="margin-bottom: 1.5rem; padding: 1rem; border: 1px dashed var(--border-light); border-radius: 0.5rem; text-align: center;">
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">You can use AI to generate questions
+                    automatically.</p>
+                <button id="generate-btn" class="btn btn-secondary" onclick="Admin.generateQuiz()"
+                    style="border-color: var(--primary); color: var(--primary);">
+                    <ion-icon name="sparkles"></ion-icon> Generate Questions with AI
+                </button>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                <button class="btn btn-secondary" onclick="Admin.closeModal('admin-quiz-modal')">Cancel</button>
+                <button id="assign-btn" class="btn btn-primary" onclick="Admin.assignQuiz()" disabled>
+                    <ion-icon name="checkmark-circle"></ion-icon> Assign Quiz
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student List Modal (Mock Data) -->
+    <div id="admin-students-modal" class="auth-overlay" style="display: none; z-index: 210;">
+        <div class="glass-card" style="max-width: 500px; width: 90%; position: relative;">
+            <ion-icon name="close-outline" onclick="Admin.closeModal('admin-students-modal')"
+                style="position: absolute; top: 1rem; right: 1rem; cursor: pointer; font-size: 1.5rem;"></ion-icon>
+
+            <h2 style="margin-bottom: 1.5rem;">All Students</h2>
+
+            <div style="max-height: 300px; overflow-y: auto;">
+                <ul style="list-style: none; padding: 0;">
+                    <li
+                        style="padding: 1rem; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between;">
+                        <span style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div
+                                style="width: 32px; height: 32px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; color: var(--primary);">
+                                JD</div>
+                            John Doe
+                        </span>
+                        <span style="color: var(--success); font-size: 0.85rem;">Online</span>
+                    </li>
+                    <li
+                        style="padding: 1rem; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between;">
+                        <span style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div
+                                style="width: 32px; height: 32px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; color: var(--accent);">
+                                AS</div>
+                            Alice Smith
+                        </span>
+                        <span style="color: var(--text-muted); font-size: 0.85rem;">Last seen 2h ago</span>
+                    </li>
+                    <li
+                        style="padding: 1rem; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between;">
+                        <span style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div
+                                style="width: 32px; height: 32px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; color: var(--warning);">
+                                MJ</div>
+                            Michael Johnson
+                        </span>
+                        <span style="color: var(--text-muted); font-size: 0.85rem;">Last seen 5m ago</span>
+                    </li>
+                    <!-- Mock Data can be extended -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Library Modal (Mock Data) -->
+    <div id="admin-content-modal" class="auth-overlay" style="display: none; z-index: 210;">
+        <div class="glass-card" style="max-width: 500px; width: 90%; position: relative;">
+            <ion-icon name="close-outline" onclick="Admin.closeModal('admin-content-modal')"
+                style="position: absolute; top: 1rem; right: 1rem; cursor: pointer; font-size: 1.5rem;"></ion-icon>
+
+            <h2 style="margin-bottom: 1.5rem;">Content Library</h2>
+
+            <div style="max-height: 300px; overflow-y: auto;">
+                <div
+                    style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Grammar Module 1</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Introduction to Tenses</p>
+                </div>
+                <div
+                    style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                    <h4 style="color: var(--accent); margin-bottom: 0.5rem;">Vocabulary Pack A</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Business English Essentials</p>
+                </div>
+                <div
+                    style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                    <h4 style="color: var(--success); margin-bottom: 0.5rem;">Reading Comprehension</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Daily News Articles (Intermediate)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Admin) Admin.init();
+        });
+    </script>
+</body>
+
+</html>

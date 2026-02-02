@@ -1,0 +1,60 @@
+[
+  {
+    "username": "berfin",
+    "score": 2,
+    "answers": [
+      {
+        "id": 1,
+        "correct": true
+      },
+      {
+        "id": 2,
+        "correct": false
+      },
+      {
+        "id": 3,
+        "correct": true
+      }
+    ],
+    "date": "2026-01-15T15:47:59.282Z"
+  },
+  {
+    "username": "admin",
+    "score": 4,
+    "totalQuestions": 5,
+    "answers": [
+      {
+        "id": 1,
+        "text": "What is the correct way to introduce yourself?",
+        "selectedOption": "Hi, I am John.",
+        "correct": false
+      },
+      {
+        "id": 2,
+        "text": "Which word is a noun?",
+        "selectedOption": "Cat",
+        "correct": true
+      },
+      {
+        "id": 3,
+        "text": "How do you ask someone's name?",
+        "selectedOption": "What is your name?",
+        "correct": true
+      },
+      {
+        "id": 4,
+        "text": "Choose the correct plural of 'child'.",
+        "selectedOption": "children",
+        "correct": true
+      },
+      {
+        "id": 5,
+        "text": "Which sentence is in present simple tense?",
+        "selectedOption": "She runs every morning.",
+        "correct": true
+      }
+    ],
+    "weakTopics": [],
+    "date": "2026-01-16T02:12:10.526Z"
+  }
+]

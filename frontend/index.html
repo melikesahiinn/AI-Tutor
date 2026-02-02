@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langually.AI | Master English with AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- Marked.js for Markdown Rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+
+    <!-- 1. Auth View (Initial State) -->
+    <div id="auth-view" class="auth-overlay active">
+        <div class="glass-card auth-box"
+            style="box-shadow: var(--shadow-xl); border: 1px solid rgba(99, 102, 241, 0.2);">
+            <!-- Logo with Glow Effect -->
+            <div style="position: relative; margin-bottom: 2rem;">
+                <div
+                    style="position: absolute; inset: 0; background: var(--primary-glow); filter: blur(40px); opacity: 0.5; border-radius: 50%;">
+                </div>
+                <h1 class="brand"
+                    style="justify-content: center; font-size: 2.5rem; margin-bottom: 0.5rem; position: relative;">
+                    <div
+                        style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-neon);">
+                        <ion-icon name="planet" style="color: white; font-size: 1.75rem;"></ion-icon>
+                    </div>
+                    Langually.AI
+                </h1>
+            </div>
+
+            <p style="margin-bottom: 2rem; font-size: 0.95rem; color: var(--text-secondary);">Your Personal AI Tutor for
+                English Mastery</p>
+
+            <!-- Registration Form -->
+            <div style="text-align: left; margin-bottom: 1.5rem;">
+                <label
+                    style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">
+                    <ion-icon name="person-outline" style="vertical-align: middle; margin-right: 0.25rem;"></ion-icon>
+                    Full Name
+                </label>
+                <input type="text" id="username-input" placeholder="e.g. Alex Morgan" style="width: 100%;">
+            </div>
+
+            <div style="text-align: left; margin-bottom: 2rem;">
+                <label
+                    style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">
+                    <ion-icon name="lock-closed-outline"
+                        style="vertical-align: middle; margin-right: 0.25rem;"></ion-icon>
+                    Password
+                </label>
+                <div style="position: relative;">
+                    <input type="password" id="password-input" placeholder="Create a secure password"
+                        style="width: 100%; padding-right: 3rem;">
+                    <ion-icon name="eye-outline" onclick="togglePassword()" id="toggle-password-icon"
+                        style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted); font-size: 1.25rem;"></ion-icon>
+                </div>
+                <p
+                    style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
+                    <ion-icon name="information-circle-outline" style="font-size: 0.9rem;"></ion-icon>
+                    Minimum 6 characters recommended
+                </p>
+            </div>
+
+            <button onclick="app.login()" class="btn btn-primary" id="auth-btn"
+                style="width: 100%; justify-content: center; box-shadow: var(--shadow-neon);">
+                <ion-icon name="rocket"></ion-icon>
+                <span id="auth-btn-text">Start Learning Journey</span>
+            </button>
+
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                <span id="auth-toggle-text">Don't have an account?</span>
+                <span onclick="app.toggleAuth()"
+                    style="color: var(--primary); cursor: pointer; font-weight: 600; margin-left: 0.25rem;"
+                    id="auth-toggle-action">Register</span>
+            </p>
+
+            <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light);">
+                <a href="admin.html"
+                    style="color: var(--text-muted); text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid var(--border-light); border-radius: var(--radius-sm); transition: 0.3s;"
+                    onmouseover="this.style.borderColor='var(--primary)'; this.style.color='var(--primary)'"
+                    onmouseout="this.style.borderColor='var(--border-light)'; this.style.color='var(--text-muted)'">
+                    <ion-icon name="key-outline"></ion-icon> Teacher Portal
+                </a>
+            </div>
+
+            <p
+                style="margin-top: 1.5rem; font-size: 0.8rem; opacity: 0.5; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                <ion-icon name="shield-checkmark" style="font-size: 1rem;"></ion-icon>
+                Powered by Advanced LLMs
+            </p>
+        </div>
+    </div>
+
+    <!-- 2. Main App (Hidden initially) -->
+    <div id="app-structure" class="app-container" style="display: none;">
+
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="brand">
+                <ion-icon name="planet" style="color: var(--primary);"></ion-icon> Langually
+            </div>
+
+            <ul class="nav-links">
+                <li class="nav-item active" onclick="app.nav('dashboard')">
+                    <ion-icon name="grid-outline"></ion-icon> Dashboard
+                </li>
+                <li class="nav-item" onclick="app.nav('chat')">
+                    <ion-icon name="chatbubbles-outline"></ion-icon> AI Tutor
+                </li>
+                <li class="nav-item" onclick="app.nav('quiz')">
+                    <ion-icon name="school-outline"></ion-icon> Daily Quiz
+                </li>
+                <li class="nav-item" onclick="app.nav('writing')">
+                    <ion-icon name="pencil-outline"></ion-icon> Writing Lab
+                </li>
+            </ul>
+
+            <div class="user-profile">
+                <div class="avatar" id="sidebar-avatar">A</div>
+                <div style="flex: 1;">
+                    <div style="font-weight: 600; font-size: 0.95rem;" id="sidebar-username">User</div>
+                    <div style="font-size: 0.75rem; color: var(--success);">Online</div>
+                </div>
+                <ion-icon name="log-out-outline" onclick="location.reload()"
+                    style="cursor: pointer; opacity: 0.7;"></ion-icon>
+            </div>
+        </nav>
+
+        <!-- Dynamic Content Area -->
+        <main class="main-content">
+
+            <!-- VIEW: Dashboard -->
+            <section id="view-dashboard" class="view active">
+                <header
+                    style="margin-bottom: 2.5rem; display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div>
+                        <h1 style="font-size: 2.5rem;">Dashboard</h1>
+                        <p>Real-time overview of your learning journey.</p>
+                    </div>
+                </header>
+
+                <div class="grid-cols-3" style="margin-bottom: 2rem;">
+                    <!-- KPI 1: Daily Streak -->
+                    <div class="glass-card" style="position: relative;">
+                        <div
+                            style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: var(--warning-glow); filter: blur(40px); opacity: 0.4; border-radius: 50%;">
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; margin-bottom: 1rem; position: relative;">
+                            <div class="stat-label">Daily Streak</div>
+                            <div
+                                style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--warning), #fbbf24); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px var(--warning-glow);">
+                                <ion-icon name="flame" style="color: white; font-size: 1.25rem;"></ion-icon>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="dash-streak">0</div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem;">
+                            <div
+                                style="padding: 0.25rem 0.75rem; background: rgba(16, 185, 129, 0.15); border-radius: var(--radius-full); display: flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: var(--success);">
+                                <ion-icon name="trending-up" style="font-size: 1rem;"></ion-icon>
+                                <span style="font-weight: 600;">+2 days</span>
+                            </div>
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Keep it up!</span>
+                        </div>
+                    </div>
+
+                    <!-- KPI 2: Total XP -->
+                    <div class="glass-card" style="position: relative;">
+                        <div
+                            style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: var(--primary-glow); filter: blur(40px); opacity: 0.4; border-radius: 50%;">
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; margin-bottom: 1rem; position: relative;">
+                            <div class="stat-label">Total XP</div>
+                            <div
+                                style="width: 40px; height: 40px; background: linear-gradient(135deg, #fbbf24, #f59e0b); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);">
+                                <ion-icon name="trophy" style="color: white; font-size: 1.25rem;"></ion-icon>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="dash-xp">0</div>
+                        <div style="margin-top: 0.75rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">Level Progress</span>
+                                <span
+                                    style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 600;">72%</span>
+                            </div>
+                            <div
+                                style="width: 100%; height: 6px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-full); overflow: hidden;">
+                                <div
+                                    style="width: 72%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: var(--radius-full); box-shadow: 0 0 10px var(--primary-glow);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI 3: Accuracy -->
+                    <div class="glass-card" style="position: relative;">
+                        <div
+                            style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: var(--success-glow); filter: blur(40px); opacity: 0.4; border-radius: 50%;">
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; margin-bottom: 1rem; position: relative;">
+                            <div class="stat-label">Accuracy</div>
+                            <div
+                                style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-glow);">
+                                <ion-icon name="stats-chart" style="color: white; font-size: 1.25rem;"></ion-icon>
+                            </div>
+                        </div>
+                        <div class="stat-value">84%</div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem;">
+                            <div
+                                style="padding: 0.25rem 0.75rem; background: rgba(16, 185, 129, 0.15); border-radius: var(--radius-full); display: flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: var(--success);">
+                                <ion-icon name="arrow-up" style="font-size: 1rem;"></ion-icon>
+                                <span style="font-weight: 600;">+2%</span>
+                            </div>
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">this week</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Recommendations -->
+                <div class="glass-card"
+                    style="margin-bottom: 2rem; position: relative; overflow: hidden; border: 1px solid rgba(139, 92, 246, 0.2);">
+                    <!-- Animated Glow Background -->
+                    <div
+                        style="position: absolute; top: -80px; right: -80px; width: 250px; height: 250px; background: var(--accent-glow); filter: blur(70px); opacity: 0.6; animation: pulse 4s ease-in-out infinite;">
+                    </div>
+                    <div
+                        style="position: absolute; bottom: -60px; left: -60px; width: 200px; height: 200px; background: var(--primary-glow); filter: blur(60px); opacity: 0.4; animation: pulse 4s ease-in-out infinite reverse;">
+                    </div>
+
+                    <div style="position: relative;">
+                        <div
+                            style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(99, 102, 241, 0.2)); border-radius: var(--radius-full); margin-bottom: 1rem; border: 1px solid rgba(139, 92, 246, 0.3);">
+                            <ion-icon name="sparkles" style="color: var(--accent); font-size: 1.1rem;"></ion-icon>
+                            <span
+                                style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background: linear-gradient(135deg, var(--accent-light), var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">AI
+                                Insights</span>
+                        </div>
+
+                        <h3
+                            style="margin-bottom: 1rem; font-size: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                            <span>Personalized Focus Area</span>
+                        </h3>
+
+                        <p style="margin-bottom: 1.5rem; max-width: 700px; line-height: 1.7; font-size: 0.95rem;">
+                            Based on your recent chat sessions and quiz performance, our AI detected you could
+                            strengthen your understanding of <strong style="color: var(--accent-light);">Past Perfect
+                                Tense</strong>.
+                            A quick 10-minute practice session can boost your confidence by up to <span
+                                style="color: var(--success); font-weight: 600;">25%</span>.
+                        </p>
+
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <button class="btn btn-primary" onclick="app.nav('chat', 'practice')"
+                                style="box-shadow: var(--shadow-neon);">
+                                <ion-icon name="rocket"></ion-icon>
+                                Start Practice Session
+                            </button>
+                            <button class="btn btn-secondary"
+                                onclick="document.getElementById('system-logic-modal').style.display='flex'">
+                                <ion-icon name="information-circle-outline"></ion-icon>
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    @keyframes pulse {
+
+                        0%,
+                        100% {
+                            opacity: 0.4;
+                            transform: scale(1);
+                        }
+
+                        50% {
+                            opacity: 0.6;
+                            transform: scale(1.1);
+                        }
+                    }
+                </style>
+
+                <!-- Personalized Learning Analytics -->
+                <div class="grid-cols-2" style="margin-bottom: 2rem; gap: 1.5rem;">
+
+                    <!-- Skills Progress Section -->
+                    <div class="glass-card" style="position: relative;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <div>
+                                <h3
+                                    style="font-size: 1.25rem; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <ion-icon name="bar-chart" style="color: var(--primary);"></ion-icon>
+                                    Skill Progress
+                                </h3>
+                                <p style="font-size: 0.85rem; color: var(--text-muted);">Your English mastery levels</p>
+                            </div>
+                        </div>
+
+                        <!-- Grammar Skill -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div
+                                        style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%;">
+                                    </div>
+                                    <span style="font-size: 0.9rem; font-weight: 500;">Grammar</span>
+                                </div>
+                                <span id="dash-grammar-text"
+                                    style="font-size: 0.9rem; font-weight: 600; color: var(--primary);">0%</span>
+                            </div>
+                            <div
+                                style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-full); overflow: hidden; position: relative;">
+                                <div id="dash-grammar-bar"
+                                    style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary-light)); border-radius: var(--radius-full); box-shadow: 0 0 10px var(--primary-glow); transition: width 1s ease;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vocabulary Skill -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div
+                                        style="width: 8px; height: 8px; background: var(--accent); border-radius: 50%;">
+                                    </div>
+                                    <span style="font-size: 0.9rem; font-weight: 500;">Vocabulary</span>
+                                </div>
+                                <span id="dash-vocab-text"
+                                    style="font-size: 0.9rem; font-weight: 600; color: var(--accent);">0%</span>
+                            </div>
+                            <div
+                                style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-full); overflow: hidden;">
+                                <div id="dash-vocab-bar"
+                                    style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); border-radius: var(--radius-full); box-shadow: 0 0 10px var(--accent-glow); transition: width 1s ease;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Speaking Skill -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div
+                                        style="width: 8px; height: 8px; background: var(--success); border-radius: 50%;">
+                                    </div>
+                                    <span style="font-size: 0.9rem; font-weight: 500;">Conversation</span>
+                                </div>
+                                <span id="dash-speaking-text"
+                                    style="font-size: 0.9rem; font-weight: 600; color: var(--success);">0%</span>
+                            </div>
+                            <div
+                                style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-full); overflow: hidden;">
+                                <div id="dash-speaking-bar"
+                                    style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--success), #34d399); border-radius: var(--radius-full); box-shadow: 0 0 10px var(--success-glow); transition: width 1s ease;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Writing Skill -->
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div style="width: 8px; height: 8px; background: var(--info); border-radius: 50%;">
+                                    </div>
+                                    <span style="font-size: 0.9rem; font-weight: 500;">Writing</span>
+                                </div>
+                                <span id="dash-writing-text"
+                                    style="font-size: 0.9rem; font-weight: 600; color: var(--info);">0%</span>
+                            </div>
+                            <div
+                                style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-full); overflow: hidden;">
+                                <div id="dash-writing-bar"
+                                    style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--info), #60a5fa); border-radius: var(--radius-full); box-shadow: 0 0 10px rgba(59, 130, 246, 0.4); transition: width 1s ease;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weekly Activity Chart -->
+                    <div class="glass-card" style="position: relative;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <h3
+                                style="font-size: 1.25rem; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <ion-icon name="calendar" style="color: var(--accent);"></ion-icon>
+                                Weekly Activity
+                            </h3>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Your learning consistency this week
+                            </p>
+                        </div>
+
+                        <!-- Activity Bars -->
+                        <div
+                            style="display: flex; gap: 0.75rem; align-items: flex-end; height: 150px; margin-bottom: 1rem;">
+                            <!-- Monday -->
+                            <div
+                                style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                                <div
+                                    style="width: 100%; height: 80%; background: linear-gradient(to top, var(--primary), transparent); border-radius: var(--radius-sm); position: relative; overflow: hidden;">
+                                    <div
+                                        style="position: absolute; bottom: 0; width: 100%; height: 100%; background: linear-gradient(to top, var(--primary), var(--primary-light)); border-radius: var(--radius-sm); box-shadow: 0 0 10px var(--primary-glow);">
+                                    </div>
+                                </div>
+                                <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 500;">Mon</span>
+                            </div>
+                            <!-- Tuesday -->
+                            <div
+                                style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                                <div
+                                    style="width: 100%; height: 65%; background: linear-gradient(to top, var(--accent), transparent); border-radius: var(--radius-sm); position: relative; overflow: hidden;">
+                                    <div
+                                        style="position: absolute; bottom: 0; width: 100%; height: 100%; background: linear-gradient(to top, var(--accent), var(--accent-light)); border-radius: var(--radius-sm); box-shadow: 0 0 10px var(--accent-glow);">
+                                    </div>
+                                </div>
+                                <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 500;">Tue</span>
+                            </div>
+                            <!-- Wednesday -->
+                            <div
+                                style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                                <div
+                                    style="width: 100%; height: 90%; background: linear-gradient(to top, var(--success), transparent); border-radius: var(--radius-sm); position: relative; overflow: hidden;">
+                                    <div
+                                        style="position: absolute; bottom: 0; width: 100%; height: 100%; background: linear-gradient(to top, var(--success), #34d399); border-radius: var(--radius-sm); box-shadow: 0 0 10px var(--success-glow);">
+                                    </div>
+                                </div>
+                                <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 500;">Wed</span>
+                            </div>
+                            <!-- Thursday -->
+                            <div
+                                style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                                <div
+                                    style="width: 100%; height: 75%; background: linear-gradient(to top, var(--primary), transparent); border-radius: var(--radius-sm); position: relative; overflow: hidden;">
+                                    <div
+                                        style="position: absolute; bottom: 0; width: 100%; height: 100%; background: linear-gradient(to top, var(--primary), var(--primary-light)); border-radius: var(--radius-sm); box-shadow: 0 0 10px var(--primary-glow);">
+                                    </div>
+                                </div>
+                                <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 500;">Thu</span>
+                            </div>
+                            <!-- Friday -->
+                            <div
+                                style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                                <div
+                                    style="width: 100%; height: 55%; background: linear-gradient(to top, var(--info), transparent); border-radius: var(--radius-sm); position: relative; overflow: hidden;">
+                                    <div
+                                        style="position: absolute; bottom: 0; width: 100%; height: 100%; background: linear-gradient(to top, var(--info), #60a5fa); border-radius: var(--radius-sm); box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);">
+                                    </div>
+                                </div>
+                                <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 500;">Fri</span>
+                            </div>
+                            <!-- Saturday -->
+                            <div
+                                style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                                <div
+                                    style="width: 100%; height: 45%; background: linear-gradient(to top, var(--accent), transparent); border-radius: var(--radius-sm); position: relative; overflow: hidden;">
+                                    <div
+                                        style="position: absolute; bottom: 0; width: 100%; height: 100%; background: linear-gradient(to top, var(--accent), var(--accent-light)); border-radius: var(--radius-sm); box-shadow: 0 0 10px var(--accent-glow);">
+                                    </div>
+                                </div>
+                                <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 500;">Sat</span>
+                            </div>
+                            <!-- Sunday -->
+                            <div
+                                style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                                <div
+                                    style="width: 100%; height: 100%; background: linear-gradient(to top, var(--success), transparent); border-radius: var(--radius-sm); position: relative; overflow: hidden; animation: pulse 2s ease-in-out infinite;">
+                                    <div
+                                        style="position: absolute; bottom: 0; width: 100%; height: 100%; background: linear-gradient(to top, var(--success), #34d399); border-radius: var(--radius-sm); box-shadow: 0 0 15px var(--success-glow);">
+                                    </div>
+                                </div>
+                                <span style="font-size: 0.7rem; color: var(--success); font-weight: 600;">Today</span>
+                            </div>
+                        </div>
+
+                        <!-- Weekly Stats -->
+                        <div
+                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-light);">
+                            <div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Total
+                                    Minutes</div>
+                                <div
+                                    style="font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                                    247</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+                                    Active Days</div>
+                                <div
+                                    style="font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, var(--success), #34d399); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                                    7/7</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-chat" class="view">
+                <header style="margin-bottom: 1.5rem;">
+                    <h1>AI Tutor</h1>
+                    <p>Conversational practice with instant feedback</p>
+                </header>
+
+                <div class="chat-container glass-card" style="padding: 0; border: 1px solid var(--border-light);">
+                    <!-- Enhanced Chat Header -->
+                    <div class="chat-header"
+                        style="background: rgba(255, 255, 255, 0.02); border-bottom: 1px solid var(--border-light); padding: 1.25rem 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div
+                                style="width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-glow);">
+                                <ion-icon name="chatbubbles" style="color: white; font-size: 1.25rem;"></ion-icon>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 0.25rem; font-size: 1.05rem;">English Tutor Bot</h4>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div
+                                        style="width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: pulse 2s ease-in-out infinite;">
+                                    </div>
+                                    <span style="font-size: 0.75rem; color: var(--success);">Online</span>
+                                    <span style="color: var(--text-muted);">•</span>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);"
+                                        id="chat-mode-display">Practice
+                                        Mode</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <button class="btn btn-secondary"
+                                onclick="document.getElementById('feedback-modal').style.display = 'flex'"
+                                style="padding: 0.25rem 0.75rem; font-size: 0.8rem; height: 32px;">
+                                <ion-icon name="stop-circle-outline" style="margin-right: 0.25rem;"></ion-icon> End
+                            </button>
+                            <select id="chat-mode-select" onchange="app.setChatMode(this.value)"
+                                style="padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-size: 0.85rem; height: 32px;">
+                                <option value="practice">Free Practice</option>
+                                <option value="quiz">Interactive Quiz</option>
+                                <option value="explanation">Grammar Help</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="chat-box" class="chat-messages">
+                        <div class="msg ai">
+                            Hello! I'm ready to help you improve your English. What should we talk about today?
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Input Area -->
+                    <div class="chat-input-area"
+                        style="padding: 1.5rem; background: rgba(255, 255, 255, 0.02); border-top: 1px solid var(--border-light);">
+                        <input type="text" id="chat-input" placeholder="Type your message here..."
+                            onkeypress="if(event.key === 'Enter') app.sendMessage()"
+                            style="flex: 1; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-light); border-radius: 99px; padding: 1rem 1.5rem;">
+                        <button class="send-btn" onclick="app.sendMessage()"
+                            style="width: 50px; height: 50px; border-radius: 50%; border: none; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition-smooth); box-shadow: var(--shadow-glow);">
+                            <ion-icon name="send" style="font-size: 1.25rem;"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: Writing (Enhanced) -->
+            <section id="view-writing" class="view">
+                <header style="margin-bottom: 2rem;">
+                    <h1>Writing Lab</h1>
+                    <p>Improve your writing with instant AI feedback</p>
+                </header>
+
+                <div style="display: flex; gap: 1.5rem;">
+                    <!-- Writing Area -->
+                    <div style="flex: 2;">
+                        <div class="glass-card"
+                            style="padding: 0; overflow: hidden; display: flex; flex-direction: column; min-height: 500px;">
+                            <!-- Toolbar -->
+                            <div
+                                style="padding: 1rem; border-bottom: 1px solid var(--border-light); background: rgba(0,0,0,0.2); display: flex; gap: 0.5rem; align-items: center;">
+                                <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem;" title="Italic"
+                                    onclick="app.insertMarkdown('*')"><ion-icon name="text"></ion-icon></button>
+                                <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem;" title="Bold"
+                                    onclick="app.insertMarkdown('**')"><ion-icon name="list"></ion-icon></button>
+                                <div
+                                    style="width: 1px; height: 20px; background: var(--border-light); margin: 0 0.5rem;">
+                                </div>
+                                <select id="writing-type-select"
+                                    style="background: transparent; border: none; color: white; font-size: 0.9rem; cursor: pointer;">
+                                    <option value="Essay" style="background: #1f2937; color: white;">Essay</option>
+                                    <option value="Email" style="background: #1f2937; color: white;">Email</option>
+                                    <option value="Story" style="background: #1f2937; color: white;">Story</option>
+                                </select>
+                                <span style="margin-left: auto; font-size: 0.8rem; color: var(--text-muted);"
+                                    id="word-count">0
+                                    words</span>
+                            </div>
+
+                            <!-- Text Area -->
+                            <textarea id="writing-input"
+                                style="width: 100%; flex: 1; resize: none; margin-bottom: 0; background: transparent; border: none; padding: 1.5rem; font-size: 1rem; line-height: 1.6; color: var(--text-main); font-family: inherit;"
+                                placeholder="Start writing your text here..."
+                                oninput="document.getElementById('word-count').innerText = this.value.split(/\s+/).filter(Boolean).length + ' words'"></textarea>
+
+                            <!-- Action Bar -->
+                            <div
+                                style="padding: 1rem; border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end;">
+                                <button class="btn btn-primary" onclick="app.submitWriting()">
+                                    <ion-icon name="sparkles"></ion-icon> Analyze & Grade
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar / Suggestions -->
+                    <div style="flex: 1;">
+                        <div class="glass-card" style="margin-bottom: 1.5rem;">
+                            <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Suggested Topics</h3>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <button class="btn btn-secondary" onclick="app.setWritingTopic('Technology Trends')"
+                                    style="justify-content: flex-start; text-align: left; font-size: 0.9rem;">
+                                    <ion-icon name="bulb-outline" style="color: var(--warning);"></ion-icon> Technology
+                                    Trends
+                                </button>
+                                <button class="btn btn-secondary"
+                                    onclick="app.setWritingTopic('Environment Protection')"
+                                    style="justify-content: flex-start; text-align: left; font-size: 0.9rem;">
+                                    <ion-icon name="leaf-outline" style="color: var(--success);"></ion-icon> Environment
+                                </button>
+                                <button class="btn btn-secondary" onclick="app.setWritingTopic('Career Goals')"
+                                    style="justify-content: flex-start; text-align: left; font-size: 0.9rem;">
+                                    <ion-icon name="briefcase-outline" style="color: var(--primary);"></ion-icon> Career
+                                    Goals
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="glass-card" id="writing-feedback-placeholder">
+                            <h3
+                                style="margin-bottom: 1rem; font-size: 1.1rem; color: var(--text-muted); text-align: center;">
+                                Feedback</h3>
+                            <div
+                                style="text-align: center; color: var(--text-secondary); font-size: 0.9rem; padding: 2rem 0;">
+                                <ion-icon name="search-outline"
+                                    style="font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.5;"></ion-icon>
+                                <p>Submit your writing to receive AI feedback and grading.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="writing-result" style="margin-top: 2rem;"></div>
+            </section>
+
+            <!-- VIEW: Quiz (Detailed Redesign) -->
+            <section id="view-quiz" class="view">
+                <header
+                    style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div>
+                        <h1>Daily Quiz</h1>
+                        <p>Challenge yourself and track your progress.</p>
+                    </div>
+                </header>
+
+                <!-- Quiz Progress Bars -->
+                <div class="glass-card"
+                    style="margin-bottom: 2rem; background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);">
+                    <div
+                        style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                        <span style="color: var(--text-secondary);">Course Progress</span>
+                        <span id="quiz-course-text" style="color: var(--primary);">0%</span>
+                    </div>
+                    <!-- Master Bar -->
+                    <div
+                        style="width: 100%; height: 8px; background: rgba(0,0,0,0.3); border-radius: 4px; overflow: hidden; margin-bottom: 1.5rem;">
+                        <div id="quiz-course-bar"
+                            style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 4px; box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem;">
+                        <!-- Segment Bars -->
+                        <div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Grammar
+                            </div>
+                            <div style="height: 4px; width: 100%; background: rgba(0,0,0,0.3); border-radius: 2px;">
+                                <div id="quiz-grammar-bar"
+                                    style="width: 0%; height: 100%; background: var(--success); border-radius: 2px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+                                Vocabulary</div>
+                            <div style="height: 4px; width: 100%; background: rgba(0,0,0,0.3); border-radius: 2px;">
+                                <div id="quiz-vocab-bar"
+                                    style="width: 0%; height: 100%; background: var(--warning); border-radius: 2px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Listening
+                            </div>
+                            <div style="height: 4px; width: 100%; background: rgba(0,0,0,0.3); border-radius: 2px;">
+                                <div id="quiz-listening-bar"
+                                    style="width: 0%; height: 100%; background: var(--info); border-radius: 2px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Streak
+                            </div>
+                            <div style="display: flex; gap: 2px;">
+                                <div style="height: 4px; width: 20%; background: var(--error); border-radius: 2px;">
+                                </div>
+                                <div style="height: 4px; width: 20%; background: var(--error); border-radius: 2px;">
+                                </div>
+                                <div style="height: 4px; width: 20%; background: var(--error); border-radius: 2px;">
+                                </div>
+                                <div style="height: 4px; width: 20%; background: rgba(0,0,0,0.3); border-radius: 2px;">
+                                </div>
+                                <div style="height: 4px; width: 20%; background: rgba(0,0,0,0.3); border-radius: 2px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Assigned Quiz Card -->
+                <div id="assigned-quiz-card" class="glass-card"
+                    style="display: none; margin-bottom: 2rem; border-left: 4px solid var(--accent); background: linear-gradient(90deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0));">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div
+                                style="width: 50px; height: 50px; background: rgba(139, 92, 246, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent);">
+                                <ion-icon name="school" style="font-size: 1.5rem;"></ion-icon>
+                            </div>
+                            <div>
+                                <h3 id="assigned-quiz-title" style="font-size: 1.1rem; margin-bottom: 0.25rem;">New
+                                    Assignment</h3>
+                                <p id="assigned-quiz-info"
+                                    style="font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
+                                    <ion-icon name="person-circle-outline"></ion-icon> Assigned by Teacher
+                                </p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="app.startQuiz()">
+                            <ion-icon name="play-circle"></ion-icon> Start Quiz
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Quiz Container -->
+                <div id="quiz-container" style="max-width: 800px; margin: 0 auto;">
+                    <div class="glass-card" style="text-align: center; padding: 3rem;">
+                        <h3 style="margin-bottom: 1rem;">Daily Challenge</h3>
+                        <p style="margin-bottom: 2rem; color: var(--text-muted);">Test your knowledge with personalized
+                            questions based on your recent activity.</p>
+                        <button class="btn btn-primary" onclick="app.startQuiz('daily')">
+                            <ion-icon name="play"></ion-icon> Start Daily Quiz
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+    </div>
+    </section>
+
+    <!-- VIEW: History (Enhanced) -->
+    <section id="view-history" class="view">
+        <header style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1>Learning History</h1>
+                <p>Your complete learning timeline</p>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+                <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                    <ion-icon name="filter-outline"></ion-icon> Filter
+                </button>
+                <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                    <ion-icon name="download-outline"></ion-icon> Export
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Summary -->
+        <div class="grid-cols-3" style="margin-bottom: 2rem;">
+            <div class="glass-card" style="padding: 1rem; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">24</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Completed Lessons</div>
+            </div>
+            <div class="glass-card" style="padding: 1rem; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent);">12</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Quizzes Taken</div>
+            </div>
+            <div class="glass-card" style="padding: 1rem; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700; color: var(--success);">4.8</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Avg. Score</div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h3
+                style="margin-bottom: 1rem; font-size: 1.1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">
+                Recent Activity</h3>
+            <ul style="list-style: none;">
+                <li
+                    style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div
+                            style="width: 40px; height: 40px; background: rgba(99, 102, 241, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                            <ion-icon name="chatbubble-ellipses"></ion-icon>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 0.2rem;">Past Perfect Practice</h4>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Chat Session • 10 mins ago</p>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span
+                            style="display: block; color: var(--success); font-size: 0.9rem; font-weight: 500;">Completed</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">+150 XP</span>
+                    </div>
+                </li>
+                <li
+                    style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div
+                            style="width: 40px; height: 40px; background: rgba(245, 158, 11, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--warning);">
+                            <ion-icon name="trophy"></ion-icon>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 0.2rem;">Daily Quiz: Prepositions</h4>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Quiz • Yesterday</p>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="display: block; color: var(--text-main); font-weight: 600;">80% Score</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">+80 XP</span>
+                    </div>
+                </li>
+                <li style="display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div
+                            style="width: 40px; height: 40px; background: rgba(16, 185, 129, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--success);">
+                            <ion-icon name="pencil"></ion-icon>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 0.2rem;">Essay: My Last Holiday</h4>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Writing Lab • 2 days ago</p>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span
+                            style="display: block; color: var(--info); font-size: 0.9rem; font-weight: 500;">Analyzed</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Grade: B+</span>
+                    </div>
+                </li>
+            </ul>
+            <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem; justify-content: center;">View All
+                History</button>
+        </div>
+    </section>
+
+    <!-- VIEW: Settings (Enhanced) -->
+    <section id="view-settings" class="view">
+        <header style="margin-bottom: 2rem;">
+            <h1>Settings</h1>
+            <p>Manage your preferences and account.</p>
+        </header>
+
+        <div class="grid-cols-2" style="margin-bottom: 2rem; gap: 2rem;">
+            <!-- General Settings -->
+            <div class="glass-card">
+                <h3
+                    style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--primary);">
+                    <ion-icon name="options-outline"></ion-icon> General
+                </h3>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Interface Language</label>
+                    <select
+                        style="width: 100%; padding: 0.75rem; border-radius: var(--radius-md); background: rgba(0,0,0,0.3); border: 1px solid var(--border-light); color: white;">
+                        <option>English (US) - Default</option>
+                        <option>Turkish (Türkçe)</option>
+                        <option>Spanish (Español)</option>
+                        <option>French (Français)</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span>Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" checked disabled title="System Default">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Sound Effects</span>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Learning Preferences -->
+            <div class="glass-card">
+                <h3
+                    style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--accent);">
+                    <ion-icon name="book-outline"></ion-icon> Learning Profile
+                </h3>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Current Level</label>
+                    <select
+                        style="width: 100%; padding: 0.75rem; border-radius: var(--radius-md); background: rgba(0,0,0,0.3); border: 1px solid var(--border-light); color: white;">
+                        <option>A1 - Beginner</option>
+                        <option selected>B1 - Intermediate</option>
+                        <option>C1 - Advanced</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span>Daily Goal Reminders</span>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Weekly Progress Report</span>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h3 style="margin-bottom: 0.25rem;">Account</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Logged in as <strong>Alex</strong></p>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn btn-secondary">Edit Profile</button>
+                <button class="btn btn-secondary" style="color: var(--error); border-color: rgba(239, 68, 68, 0.3);"
+                    onclick="location.reload()">
+                    <ion-icon name="log-out-outline"></ion-icon> Sign Out
+                </button>
+            </div>
+        </div>
+    </section>
+
+    </main>
+    </div>
+
+
+    <!-- Feedback / Rating Modal (FR17 & FR18) -->
+    <div id="feedback-modal" class="auth-overlay" style="display: none; z-index: 200;">
+        <div class="glass-card" style="max-width: 400px; text-align: center; position: relative;">
+            <ion-icon name="close-outline" onclick="document.getElementById('feedback-modal').style.display = 'none'"
+                style="position: absolute; top: 1rem; right: 1rem; cursor: pointer; font-size: 1.5rem;"></ion-icon>
+
+            <div
+                style="width: 60px; height: 60px; background: rgba(16, 185, 129, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--success);">
+                <ion-icon name="checkmark-circle" style="font-size: 2rem;"></ion-icon>
+            </div>
+
+            <h2 style="margin-bottom: 0.5rem;">Session Complete!</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">How helpful was this session?</p>
+
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
+                <button class="btn btn-secondary"
+                    style="border-radius: 50%; width: 50px; height: 50px; padding: 0; justify-content: center;">😫</button>
+                <button class="btn btn-secondary"
+                    style="border-radius: 50%; width: 50px; height: 50px; padding: 0; justify-content: center;">😐</button>
+                <button class="btn btn-secondary"
+                    style="border-radius: 50%; width: 50px; height: 50px; padding: 0; justify-content: center;">🙂</button>
+                <button class="btn btn-secondary"
+                    style="border-radius: 50%; width: 50px; height: 50px; padding: 0; justify-content: center;">🤩</button>
+            </div>
+
+            <textarea placeholder="Any specific feedback on the content? (FR17)"
+                style="width: 100%; margin-bottom: 1.5rem; background: rgba(0,0,0,0.2);"></textarea>
+
+            <button class="btn btn-primary" style="width: 100%; justify-content: center;"
+                onclick="document.getElementById('feedback-modal').style.display = 'none'">
+                Submit Feedback
+            </button>
+        </div>
+    </div>
+
+    <!-- System Logic Info Modal -->
+    <div id="system-logic-modal" class="auth-overlay" style="display: none; z-index: 220; backdrop-filter: blur(8px);">
+        <div class="glass-card"
+            style="max-width: 500px; width: 90%; position: relative; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(139, 92, 246, 0.3); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+            <!-- Decorative Glow -->
+            <div
+                style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: var(--accent); filter: blur(60px); opacity: 0.2; border-radius: 50%;">
+            </div>
+
+            <div style="position: relative; z-index: 1;">
+                <div style="display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.5rem;">
+                    <div
+                        style="width: 50px; height: 50px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(99, 102, 241, 0.2)); border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(139, 92, 246, 0.3);">
+                        <ion-icon name="sparkles" style="font-size: 1.5rem; color: var(--accent);"></ion-icon>
+                    </div>
+                    <div>
+                        <h3
+                            style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                            AI Learning Engine</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">How your curriculum is personalized</p>
+                    </div>
+                </div>
+
+                <div
+                    style="background: rgba(255, 255, 255, 0.03); border-radius: 12px; padding: 1.25rem; margin-bottom: 2rem; border: 1px solid rgba(255, 255, 255, 0.05);">
+                    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">
+                        Our advanced AI continuously analyzes your <strong>chat history</strong> and <strong>quiz
+                            results</strong> to identify specific weak points (e.g., Past Perfect Tense).
+                        <br><br>
+                        It then dynamically constructs a <span style="color: var(--accent-light);">personalized
+                            curriculum</span> to boost your confidence and accuracy where you need it most.
+                    </p>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end;">
+                    <button class="btn btn-primary"
+                        onclick="document.getElementById('system-logic-modal').style.display = 'none'"
+                        style="border-radius: 99px; padding: 0.75rem 2rem; box-shadow: var(--shadow-glow);">
+                        Got it, thanks!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/app.js"></script>
+
+    <script>
+        // Password toggle functionality
+        function togglePassword() {
+            const passwordInput = document.getElementById('password-input');
+            const toggleIcon = document.getElementById('toggle-password-icon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.setAttribute('name', 'eye-off-outline');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.setAttribute('name', 'eye-outline');
+            }
+        }
+        // Mock load teacher quiz (updates the quiz UI in-place)
+        function loadTeacherQuiz() {
+            // Update Header
+            document.getElementById('quiz-subject-header').innerHTML =
+                '<ion-icon name="school" style="margin-right: 0.5rem;"></ion-icon>Teacher Quiz: Past Tense Mastery';
+
+            // Update Question
+            const questionText = document.getElementById('quiz-question-text');
+            questionText.innerHTML = `
+                Select the correct form: <br>
+                <span style="color: var(--primary);">"By the time I arrived, they ______ already left."</span>
+            `;
+
+            // Update Options
+            document.getElementById('opt-text-0').innerText = "have";
+            document.getElementById('opt-text-1').innerText = "had";
+            document.getElementById('opt-text-2').innerText = "has";
+            document.getElementById('opt-text-3').innerText = "having";
+
+            // Reset styles for demo purposes (make all look unselected initially)
+            document.getElementById('opt-btn-2').style.borderColor = 'var(--border-light)';
+            document.getElementById('opt-btn-2').style.background = 'rgba(255,255,255,0.1)';
+            document.getElementById('opt-btn-2').style.boxShadow = 'none';
+
+            // Highlight correct answer logic would go here in a real app
+        }
+    </script>
+</body>
+
+</html>

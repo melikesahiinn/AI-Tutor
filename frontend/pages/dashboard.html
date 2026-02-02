@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langually.AI | Smart Dashboard</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+    <div style="display: flex; width: 100%; height: 100vh;">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="brand">Langually.AI</div>
+            <ul class="nav-links">
+                <li class="nav-item active" onclick="window.location.href='dashboard.html'"><ion-icon
+                        name="grid-outline"></ion-icon> Dashboard</li>
+                <li class="nav-item" onclick="window.location.href='chat.html'"><ion-icon
+                        name="chatbubbles-outline"></ion-icon> AI Tutor</li>
+                <li class="nav-item" onclick="window.location.href='quiz.html'"><ion-icon
+                        name="school-outline"></ion-icon> Daily Quiz</li>
+                <li class="nav-item" onclick="window.location.href='writing.html'"><ion-icon
+                        name="pencil-outline"></ion-icon> Writing</li>
+            </ul>
+            <div class="user-profile">
+                <div class="avatar" id="avatar-initial">U</div>
+                <div>
+                    <div style="font-weight: 600;" id="user-display">User</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Free Plan</div>
+                </div>
+                <ion-icon name="log-out-outline" style="margin-left: auto; cursor: pointer;" id="logout-btn"></ion-icon>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <h1 style="font-size: 2.2rem; font-weight: 700;">Learning Analytics</h1>
+                    <p style="color: var(--text-secondary);">Welcome back! Here is your realtime progress report.</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 0.9rem; color: var(--text-secondary);">Current Level</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: var(--accent);">Intermediate B1</div>
+                </div>
+            </header>
+
+            <!-- Grid Layout -->
+            <div class="dashboard-grid">
+
+                <!-- KPI Section (Top Row) -->
+                <div class="card col-span-3 kpi-card">
+                    <div class="kpi-header">
+                        <div class="kpi-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+                            <ion-icon name="flame"></ion-icon>
+                        </div>
+                        <div class="trend up"><ion-icon name="trending-up"></ion-icon> +1 Day</div>
+                    </div>
+                    <div>
+                        <div class="kpi-value" id="streak-val">0</div>
+                        <div class="kpi-label">Day Login Streak</div>
+                    </div>
+                </div>
+
+                <div class="card col-span-3 kpi-card">
+                    <div class="kpi-header">
+                        <div class="kpi-icon" style="background: rgba(251, 191, 36, 0.1); color: #fbbf24;">
+                            <ion-icon name="trophy"></ion-icon>
+                        </div>
+                        <div class="trend up"><ion-icon name="trending-up"></ion-icon> Top 10%</div>
+                    </div>
+                    <div>
+                        <div class="kpi-value" id="xp-val">0</div>
+                        <div class="kpi-label">Total Experience Points</div>
+                    </div>
+                </div>
+
+                <div class="card col-span-3 kpi-card">
+                    <div class="kpi-header">
+                        <div class="kpi-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">
+                            <ion-icon name="time"></ion-icon>
+                        </div>
+                        <div class="trend"><ion-icon name="remove"></ion-icon> Consistent</div>
+                    </div>
+                    <div>
+                        <div class="kpi-value">4.5h</div>
+                        <div class="kpi-label">Total Hours Learned</div>
+                    </div>
+                </div>
+
+                <div class="card col-span-3 kpi-card">
+                    <div class="kpi-header">
+                        <div class="kpi-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                            <ion-icon name="checkmark-circle"></ion-icon>
+                        </div>
+                        <div class="trend up"><ion-icon name="trending-up"></ion-icon> +5%</div>
+                    </div>
+                    <div>
+                        <div class="kpi-value">82%</div>
+                        <div class="kpi-label">Quiz Accuracy Rate</div>
+                    </div>
+                </div>
+
+                <!-- AI Insights Panel (Wow Factor) -->
+                <div class="card col-span-8 ai-panel">
+                    <div class="ai-badge"><ion-icon name="sparkles"></ion-icon> AI Tutor Insights</div>
+                    <h3 style="margin-bottom: 0.5rem; font-size: 1.5rem;">Weekly Analysis Report</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+                        Based on your recent writing tasks and quizzes, you've shown a <strong>12% improvement</strong>
+                        in vocabulary usage.
+                        However, I noticed some hesitation with <strong>Past Perfect Continuous</strong> tense.
+                        I recommend focusing on that for your next session.
+                    </p>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="action-btn primary" onclick="window.location.href='chat.html'">
+                            <ion-icon name="chatbubbles"></ion-icon> Start Practice Session
+                        </button>
+                        <button class="action-btn" onclick="window.location.href='quiz.html'">
+                            <ion-icon name="school"></ion-icon> Take Past Tense Quiz
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Skill Breakdown (Analytics) -->
+                <div class="card col-span-4">
+                    <h3 style="margin-bottom: 1.5rem;">Skill Breakdown</h3>
+
+                    <div class="progress-container">
+                        <div class="progress-label"><span>Grammar</span> <span>78%</span></div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" style="width: 78%; background: #8b5cf6;"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-label"><span>Vocabulary</span> <span>65%</span></div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" style="width: 65%; background: #f59e0b;"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-label"><span>Writing</span> <span>82%</span></div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" style="width: 82%; background: #10b981;"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-label"><span>Listening</span> <span>45%</span></div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" style="width: 45%; background: #3b82f6;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Timeline -->
+                <div class="card col-span-6">
+                    <h3 style="margin-bottom: 1rem;">Recent Activity</h3>
+                    <div class="timeline" id="timeline-feed">
+                        <!-- Items injected by JS -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>Completed "Daily Quiz"</h4>
+                                <div class="timeline-date">Today, 10:30 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card col-span-6">
+                    <h3 style="margin-bottom: 1rem;">Recommended Next Steps</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <button class="action-btn" onclick="window.location.href='writing.html'">
+                            <ion-icon name="pencil"></ion-icon> Write Essay
+                        </button>
+                        <button class="action-btn" onclick="window.location.href='quiz.html'">
+                            <ion-icon name="refresh"></ion-icon> Review Mistakes
+                        </button>
+                        <button class="action-btn" onclick="window.location.href='dashboard.html'">
+                            <ion-icon name="book"></ion-icon> Vocabulary List
+                        </button>
+                        <button class="action-btn" onclick="window.location.href='chat.html'">
+                            <ion-icon name="mic"></ion-icon> Pronunciation
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../js/api.js"></script>
+    <script type="module" src="../js/auth.js"></script>
+    <script type="module" src="../js/dashboard.js"></script>
+</body>
+
+</html>
